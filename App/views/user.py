@@ -24,3 +24,6 @@ def client_app():
 @user_views.route('/static/users')
 def static_user_page():
   return send_from_directory('static', 'static-user.html')
+
+#   TODO Add user views here:
+

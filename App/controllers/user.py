@@ -30,4 +30,6 @@ def update_user(id, username):
         db.session.add(user)
         return db.session.commit()
     return None
-    
+
+# User code added here:
+
