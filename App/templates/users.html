@@ -14,14 +14,17 @@
       <table>
         <thead>
           <tr>
-            <th>Id</th><th>Username</th>
+            <th>Id</th><th>email</th><th>userType</th><th>firstName</th><th>lastName</th>
           </tr>
         </thead>
         <tbody>
           {% for user in users %}
             <tr>
-                <td>{{user.id}}</td>
-                <td>{{user.username}}</td>
+              <td>{{user.id}}</td>
+              <td>{{user.email}}</td>
+              <td>{{user.userType}}</td>
+              <td>{{user.firstName}}</td>
+              <td>{{user.lastName}}</td>
             </tr>
           {% endfor %}
         <tbody>
