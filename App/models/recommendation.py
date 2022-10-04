@@ -2,6 +2,19 @@ from App.database import db
 
 class Recommendation(db.Model):
     recid = db.Column(db.Integer, primary_key=True)
-    recurl = db.Column(db.String(80), unique=True, nullable=False)
-    sentfromstaffid = db.Column(db.Integer, unique=True, nullable=False)
+    recURL = db.Column(db.String, nullable=False)
+    sentFromStaffID = db.Column(db.Integer, nullable=False)
+    
+def __init__(self, recid, recURL,sentFromStaffID):
+    self.recid = recid
+    self.recURL = recURL
+    self.sentFromStaffID = sentFromStaffID
+
+def toJSON(self):
+    return{
+        'recid': self.recid,
+        'recURL': self.recURL,
+        'sentFromStaffID': self.sentFromStaffID,
+    }
+
     

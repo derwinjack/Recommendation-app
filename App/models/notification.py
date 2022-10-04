@@ -5,7 +5,7 @@ class Notification(db.Model):
     requestBody = db.Column(db.String, nullable=False)
     status = db.Column(db.String, nullable=False)
 
-    def __init__(self, requestBody, status):
+    def __init__(self, requestBody, status="unread"):
         self.requestBody = requestBody
         self.status = status
 
