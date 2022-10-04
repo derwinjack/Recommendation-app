@@ -31,5 +31,3 @@ def update_user(id, username):
         return db.session.commit()
     return None
 
-# User code added here:
-
