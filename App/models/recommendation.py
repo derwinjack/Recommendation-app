@@ -1,3 +1,5 @@
+from App.database import db
+
 class Recommendation(db.Model):
     recid = db.Column(db.Integer, primary_key=True)
     recurl = db.Column(db.String(80), unique=True, nullable=False)
