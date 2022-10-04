@@ -1,7 +1,7 @@
 from App.database import db
 
 class Notification(db.Model):
-    notifid = db.Column(db.Integer, primary_key=True)
+    notifID = db.Column(db.Integer, primary_key=True)
     requestBody = db.Column(db.String, nullable=False)
     status = db.Column(db.String, nullable=False)
 
@@ -11,7 +11,7 @@ class Notification(db.Model):
 
     def toJSON(self):
         return{
-            'notifid': self.notifid,
+            'notifID': self.notifID,
             'requestBody': self.requestBody,
             'status': self.status,
         }

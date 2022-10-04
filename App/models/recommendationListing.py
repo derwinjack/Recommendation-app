@@ -1,16 +1,17 @@
 from App.database import db
 
-class recommendationListing(db.Model):
-    rid = db.Column(db.Integer, primary_key=True) 
+class RecommendationListing(db.Model):
+    rID = db.Column(db.Integer, primary_key=True) 
     studentID = db.Column(db.Integer, db.ForeignKey('user.id'))
-    recommendation = db.relationship('Recommendation', backref=db.backref('recommendationListing', lazy='joined'))
-
-    def __init__(self, studentID, recommendation):
+    recID = db.Column(db.Integer, db.ForeignKey('recommendation.recID'))
+    recommendations = db.relationship('Recommendation', backref=db.backref('recommendationListing', lazy='joined'))
+    
+    def __init__(self, studentID):
         self.studentID = studentID
 
     def toJSON(self):
         return{
-            'rid': self.rid,
+            'rID': self.rID,
             'studentID': self.studentID,
-            'recommendation': self.recommendation.toJSON(),
+            'recommendations': self.recommendations.toJSON(),
         }
