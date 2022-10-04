@@ -1,5 +1,4 @@
-from App.models import NotificationRequest
-from App.database import db
+from App.models import Notification
 
 def send_notif(staffID, requestBody):
     newnotif = NotificationRequest(sentToStaffID=staffID, requestBody = requestBody)
