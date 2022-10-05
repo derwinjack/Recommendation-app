@@ -17,6 +17,12 @@ from App.controllers import (
 from App.views import (
     user_views,
     index_views
+    # student_views,
+    # staff_views,
+    # notification_views,
+    # notifications_views,
+    # recommendation_views,
+    # recommendations_views
 )
 
 # New views must be imported and added to this list
@@ -24,6 +30,12 @@ from App.views import (
 views = [
     user_views,
     index_views
+    # student_views,
+    # staff_views,
+    # notification_views,
+    # notifications_views,
+    # recommendation_views,
+    # recommendations_views
 ]
 
 def add_views(app, views):

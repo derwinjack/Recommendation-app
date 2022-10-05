@@ -10,6 +10,7 @@ from App.controllers import (
     get_user,
     create_user,
     authenticate,
+    login_user
 )
 
 user_views = Blueprint('user_views', __name__, template_folder='../templates')
@@ -37,30 +38,10 @@ def signup():
     return user_signup(userdata)
 
 # LOGIN
-@user_views.route('/login', methods=['POST'])
-def login():
-    userdata = request.get_json()
-    user = authenticate(userdata('email'), userdata('password'))
-    login_user(user, remember=True)
-    return jsonify(users)
-
-# SEARCH
-@user_views.route('/search', methods=['GET'])
-def search():
-    sID = request.args.get('staffID')
-    fn = request.args.get('firstName')
-    ln = request.args.get('lastName')
-    if (sID):
-        return jsonify(get_user(sID))
-    else:
-        if (fn.exists & ln.exists):
-            return jsonify(get_users_by_firstName.toJSON())
-        else:
-            if (fn):
-                return jsonify(get_users_by_firstName)
-            else:
-                if (ln):
-                    return jsonify(get_users_by_lastName)
-    return ('user not found')
-
-
+# @user_views.route('/auth', methods=['POST'])
+# def login():
+#     userdata = request.get_json()
+#     print(userdata)
+#     user = authenticate(email=userdata['email'], password=userdata['password'])
+#     login_user(user, remember=True)
+#     return jsonify(users)

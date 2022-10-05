@@ -15,3 +15,26 @@
 # def get_user_page():
 #     users = get_all_users()
 #     return render_template('users.html', users=users)
+
+
+# # SEARCH
+# @user_views.route('/search', methods=['GET'])
+# @jwt_required()
+# def search():
+#     sID = request.args.get('staffID')
+#     fn = request.args.get('firstName')
+#     ln = request.args.get('lastName')
+#     if (sID):
+#         return jsonify(get_user(sID))
+#     else:
+#         if (fn.exists & ln.exists):
+#             return jsonify(get_users_by_firstName.toJSON())
+#         else:
+#             if (fn):
+#                 return jsonify(get_users_by_firstName)
+#             else:
+#                 if (ln):
+#                     return jsonify(get_users_by_lastName)
+#     return ('user not found')
+
+
