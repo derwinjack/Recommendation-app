@@ -16,9 +16,9 @@ from App.controllers import (
 
 from App.views import (
     user_views,
-    index_views
-    # student_views,
-    # staff_views,
+    index_views,
+    student_views,
+    staff_views,
     # notification_views,
     # notifications_views,
     # recommendation_views,
@@ -29,9 +29,9 @@ from App.views import (
 
 views = [
     user_views,
-    index_views
-    # student_views,
-    # staff_views,
+    index_views,
+    student_views,
+    staff_views
     # notification_views,
     # notifications_views,
     # recommendation_views,

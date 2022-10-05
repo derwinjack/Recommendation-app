@@ -1,9 +1,12 @@
-from App.models import User, Student
+from App.models import User,Student,Staff
 from App.database import db
 from sqlalchemy.exc import IntegrityError
 
 def create_user(email, password, userType, firstName, lastName):
-    newuser = Student(email=email, password=password, userType=userType, firstName=firstName, lastName=lastName)
+    if (userType=="student"):
+        newuser = Student(email=email, password=password, userType=userType, firstName=firstName, lastName=lastName)
+    else:
+        newuser = Staff(email=email, password=password, userType=userType, firstName=firstName, lastName=lastName)
     return newuser
 
 # SIGNUP

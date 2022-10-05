@@ -1,17 +1,20 @@
-# from flask import Blueprint, render_template, jsonify, request, send_from_directory
-# from flask_jwt import jwt_required
+from flask import Blueprint, render_template, jsonify, request, send_from_directory
+from flask_jwt import jwt_required
 
 
-# from App.controllers import (
-#     create_user, 
-#     get_all_users,
-#     get_all_users_json,
-# )
+from App.controllers import (
+    create_user, 
+    get_all_staff,
+    get_all_staff_json,
+    get_staff_by_name,
+    get_staff_by_firstName,
+    get_staff_by_lastName,  
+)
 
-# user_views = Blueprint('user_views', __name__, template_folder='../templates')
+staff_views = Blueprint('staff_views', __name__, template_folder='../templates')
 
 
-# @user_views.route('/users', methods=['GET'])
-# def get_user_page():
-#     users = get_all_users()
-#     return render_template('users.html', users=users)
+@staff_views.route('/staff', methods=['GET'])
+def get_staff_page():
+    staff = get_all_staff()
+    return render_template('users.html', users=staff)
