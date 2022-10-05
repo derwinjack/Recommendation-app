@@ -1,24 +1,24 @@
-from App.models import User
+from App.models import User, Student
 from App.database import db
 
 def create_user(email, password, userType, firstName, lastName):
-    newuser = User(email=email, userType=userType, firstName=firstName, lastName=lastName)
+    newuser = Student(email=email, password=password, userType=userType, firstName=firstName, lastName=lastName)
     return newuser
 
 # SIGNUP
 def user_signup(userdata):
     newuser = create_user(email=userdata['email'],
+        password=userdata['password'],
         userType=userdata['userType'],
         firstName=userdata['firstName'],
-        lastName=userdata['lastName'])
-    newuser.set_password(userdata['password']) # set password      
+        lastName=userdata['lastName'])    
     try:
         db.session.add(newuser)
         db.session.commit() # save user
-    except IntegrityError: # attempted to insert a duplicate user
+    except AssertionError: # attempted to insert a duplicate user
         db.session.rollback()
-        return 'user already exists with that email' # error message
-    return 'user created' # success
+        return 'user already exists with this email' # error message
+    return 'user created successfully' # success
 
 def get_users_by_firstName(firstName):
     return User.query.filter_by(firstName=firstName).all()

@@ -8,6 +8,7 @@ class RecommendationListing(db.Model):
     
     def __init__(self, studentID):
         self.studentID = studentID
+        self.recommendations= null
 
     def toJSON(self):
         return{
