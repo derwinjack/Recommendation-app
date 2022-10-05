@@ -1,15 +1,14 @@
 from flask import Blueprint, render_template, jsonify, request, send_from_directory
-from flask_jwt import jwt_required
+from flask_jwt import jwt_required, current_identity
 from App.database import db
 from sqlalchemy.exc import IntegrityError
 
 from App.controllers import (
-    user_signup,
+    create_user,
     get_all_users,
     get_all_users_json,
     get_user,
-    create_user,
-    login_user
+    user_signup,
 )
 
 user_views = Blueprint('user_views', __name__, template_folder='../templates')
@@ -26,12 +25,17 @@ def client_app():
     users = get_all_users_json()
     return jsonify(users)
 
-@user_views.route('/static/users')
-def static_user_page():
-  return send_from_directory('static', 'static-user.html')
-
 # SIGNUP
 @user_views.route('/signup', methods=['POST'])
 def signup():
     userdata = request.get_json()
     return user_signup(userdata)
+
+@user_views.route('/identify', methods=['GET'])
+@jwt_required()
+def identify_user_action():
+    return jsonify({'message': f"username: {current_identity.username}, id : {current_identity.id}"})
+
+@user_views.route('/static/users', methods=['GET'])
+def static_user_page():
+  return send_from_directory('static', 'static-user.html')
