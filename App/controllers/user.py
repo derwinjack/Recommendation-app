@@ -1,5 +1,6 @@
 from App.models import User, Student
 from App.database import db
+from sqlalchemy.exc import IntegrityError
 
 def create_user(email, password, userType, firstName, lastName):
     newuser = Student(email=email, password=password, userType=userType, firstName=firstName, lastName=lastName)
@@ -14,8 +15,9 @@ def user_signup(userdata):
         lastName=userdata['lastName'])    
     try:
         db.session.add(newuser)
-        db.session.commit() # save user
-    except AssertionError: # attempted to insert a duplicate user
+        db.session.commit()
+        db.session.flush()
+    except IntegrityError: # attempted to insert a duplicate user
         db.session.rollback()
         return 'user already exists with this email' # error message
     return 'user created successfully' # success
