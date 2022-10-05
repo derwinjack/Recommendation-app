@@ -9,20 +9,19 @@ from App.controllers import (
     get_all_users_json,
     get_user,
     create_user,
-    authenticate,
     login_user
 )
 
 user_views = Blueprint('user_views', __name__, template_folder='../templates')
 
 # View all Users
-@user_views.route('/users', methods=['GET'])
+@user_views.route('/view/users', methods=['GET'])
 def get_user_page():
     users = get_all_users()
     return render_template('users.html', users=users)
 
 # JSON View all Users
-@user_views.route('/api/users')
+@user_views.route('/users')
 def client_app():
     users = get_all_users_json()
     return jsonify(users)
@@ -36,12 +35,3 @@ def static_user_page():
 def signup():
     userdata = request.get_json()
     return user_signup(userdata)
-
-# LOGIN
-# @user_views.route('/auth', methods=['POST'])
-# def login():
-#     userdata = request.get_json()
-#     print(userdata)
-#     user = authenticate(email=userdata['email'], password=userdata['password'])
-#     login_user(user, remember=True)
-#     return jsonify(users)
