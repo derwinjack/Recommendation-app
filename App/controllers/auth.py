@@ -21,17 +21,3 @@ def logout_user():
 
 def setup_jwt(app):
     return JWT(app, authenticate, identity)
-
-def user_signup(userdata):
-    newuser = create_user(email=userdata['email'],
-        userType=userdata['userType'],
-        firstName=userdata['firstName'],
-        lastName=userdata['lastName'])
-    newuser.set_password(userdata['password']) # set password      
-    try:
-        db.session.add(newuser)
-        db.session.commit() # save user
-    except IntegrityError: # attempted to insert a duplicate user
-        db.session.rollback()
-        return 'user already exists with that email' # error message
-    return 'user created' # success
