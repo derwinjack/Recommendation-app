@@ -34,7 +34,7 @@ def signup():
 @user_views.route('/identify', methods=['GET'])
 @jwt_required()
 def identify_user_action():
-    return jsonify({'message': f"username: {current_identity.username}, id : {current_identity.id}"})
+    return jsonify({'message': f"email: {current_identity.email}, id : {current_identity.id}"})
 
 @user_views.route('/static/users', methods=['GET'])
 def static_user_page():

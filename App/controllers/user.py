@@ -25,11 +25,11 @@ def user_signup(userdata):
         return 'user already exists with this email' # error message
     return 'user created successfully' # success
 
-def get_users_by_firstName(firstName):
-    return User.query.filter_by(firstName=firstName).all()
+# def get_users_by_firstName(firstName):
+#     return User.query.filter_by(firstName=firstName).all()
 
-def get_users_by_lastName(lastName):
-    return User.query.filter_by(lastName=lastName).all()
+# def get_users_by_lastName(lastName):
+#     return User.query.filter_by(lastName=lastName).all()
 
 def get_user(id):
     return User.query.get(id)
@@ -44,11 +44,11 @@ def get_all_users_json():
     users = [user.toJSON() for user in users]
     return users
 
-# def update_user(id, username):
-#     user = get_user(id)
-#     if user:
-#         user.username = username
-#         db.session.add(user)
-#         return db.session.commit()
-#     return None
+def update_user(id, email):
+    user = get_user(id)
+    if user:
+        user.email = email
+        db.session.add(user)
+        return db.session.commit()
+    return None
 
