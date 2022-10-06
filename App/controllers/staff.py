@@ -1,17 +1,12 @@
 from App.models import Staff
 from App.database import db
-
-def get_staff_by_firstName(firstName):
-    return Staff.query.filter_by(firstName=firstName).all()
-
-def get_staff_by_lastName(lastName):
-    return Staff.query.filter_by(lastName=lastName).all()
-
-def get_staff_by_name(firstName, lastName):
-    return Staff.query.filter_by(firstName=firstName, lastName=lastName).all()
+from flask import jsonify
 
 def get_staff(id):
-    return Staff.query.get(id)
+    staff=Staff.query.get(id)
+    if staff:
+        return staff.toJSON()
+    return
 
 def get_all_staff():
     return Staff.query.all()
@@ -22,3 +17,19 @@ def get_all_staff_json():
         return []
     staff = [staf.toJSON() for staf in staff]
     return staff
+
+def get_staff_by_firstName(firstName):
+    staff= Staff.query.filter_by(firstName=firstName).all()
+    for staf in staff:
+        staff = [staf.toJSON() for staf in staff]
+    return jsonify(staff)
+
+def get_staff_by_lastName(lastName):
+    staff=Staff.query.filter_by(lastName=lastName).all()
+    staff = [staf.toJSON() for staf in staff]
+    return jsonify(staff)
+
+def get_staff_by_name(firstName, lastName):
+    staff=Staff.query.filter_by(firstName=firstName, lastName=lastName).all()
+    staff = [staf.toJSON() for staf in staff]
+    return jsonify(staff)

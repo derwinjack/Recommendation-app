@@ -5,7 +5,6 @@ from App.controllers import (
     get_staff, 
     get_all_staff,
     get_all_staff_json,
-    get_staff_by_name,
     get_staff_by_firstName,
     get_staff_by_lastName,  
 )

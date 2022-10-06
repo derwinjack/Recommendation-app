@@ -6,9 +6,9 @@ from App.controllers import (
     get_all_students,
     get_all_students_json,
     get_staff,
-    get_staff_by_name,
     get_staff_by_firstName,
-    get_staff_by_lastName,    
+    get_staff_by_lastName,
+    get_staff_by_name,  
 )
 
 student_views = Blueprint('student_views', __name__, template_folder='../templates')
@@ -34,20 +34,20 @@ def search():
     if (sID):
         staff=get_staff(sID)
         if staff:
-            return staff.toJSON()
+            return staff
     else:
         if (fn and ln):
             staff = get_staff_by_name(fn,ln)
             if staff:
-                return jsonify(staff)
+                return staff
         else:
             if (fn):
-                staff = get_staff_by_firstName(fn)
+                staff=get_staff_by_firstName(fn)
                 if staff:
-                    return jsonify(staff)
+                    return staff
             else:
-                if (ln):
-                    staff = get_staff_by_lastName(ln)
-                    return jsonify(staff)
+                if(ln):
+                    staff=get_staff_by_lastName(ln)
+                    if staff:
+                        return staff
     return ('staff member not found')
-

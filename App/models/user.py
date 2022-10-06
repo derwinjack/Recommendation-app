@@ -13,8 +13,8 @@ class User(db.Model):
         self.email = email
         self.set_password(password)
         self.userType=userType
-        self.firstName = firstName
-        self.lastName =lastName
+        self.firstName=firstName
+        self.lastName=lastName
 
     def toJSON(self):
         return{
