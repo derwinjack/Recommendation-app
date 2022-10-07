@@ -1,7 +1,12 @@
-from App.models import Notification
+from App.models import NotificationFeed
+from App.database import db
+from sqlalchemy.exc import IntegrityError
 
-def send_notif(staffID, requestBody):
-    newnotif = NotificationRequest(sentToStaffID=staffID, requestBody = requestBody)
-    db.session.add(newnotif)
-    db.session.commit()
+def send_notification(staffID, notifID):
+    newnotif = NotificationFeed(staffID=staffID, notifID=notifID)
+    try:
+        db.session.add(newnotif)
+        db.session.commit
+    except IntegrityError:
+        db.session.rollback()
     return newnotif
