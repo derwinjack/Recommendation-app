@@ -5,6 +5,7 @@ from App.controllers import (
     get_staff, 
     get_all_staff,
     get_all_staff_json,
+    get_staff_by_name,
     get_staff_by_firstName,
     get_staff_by_lastName,  
 )
@@ -18,6 +19,35 @@ def get_staff_page():
     return render_template('users.html', users=staff)
 
 @staff_views.route('/staff', methods=['GET'])
-def get_staff():
+def staff():
     staff = get_all_staff_json()
     return jsonify(staff)
+
+
+# SEARCH
+@staff_views.route('/search', methods=['GET'])
+@jwt_required()
+def search():
+    sID = request.args.get('staffID')
+    fn = request.args.get('firstName')
+    ln = request.args.get('lastName')
+    if (sID):
+        staff=get_staff(sID)
+        if staff:
+            return staff
+    else:
+        if (fn and ln):
+            staff = get_staff_by_name(fn,ln)
+            if staff:
+                return staff
+        else:
+            if (fn):
+                staff=get_staff_by_firstName(fn)
+                if staff:
+                    return staff
+            else:
+                if(ln):
+                    staff=get_staff_by_lastName(ln)
+                    if staff:
+                        return staff
+    return ('staff member not found')

@@ -9,13 +9,16 @@ from App.controllers import (
 
 notification_views = Blueprint('notification_views', __name__, template_folder='../templates')
 
-
-@notification_views.route('/reuest/send', methods=['POST'])
+# SEND REQ
+@notification_views.route('/request/send', methods=['POST'])
+@jwt_required()
 def send_notification():
-    request.get_data(data)
-    notif = create_notification(data['requestBody'], data['sentToStaffID'])
+    data = request.get_json()
+    staff = get_staff(data['sentToStaffID'])
+    if not staff:
+        return ("staff user not found")
+    notif = create_notification(data['requestBody'], "unread", data['sentToStaffID'])
     if notif:
-        return ('Request sent successfully')
+        return ('request sent successfully')
     else:
-        return ("Request could not be sent")
-
+        return ("invalid request ")

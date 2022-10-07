@@ -28,8 +28,8 @@ def client_app():
 # SIGNUP
 @user_views.route('/signup', methods=['POST'])
 def signup():
-    userdata = request.get_json()
-    return user_signup(userdata)
+    data = request.get_json()
+    return user_signup(data['firstName'], data['lastName'], data['email'], data['password'], data['userType'])
 
 @user_views.route('/identify', methods=['GET'])
 @jwt_required()

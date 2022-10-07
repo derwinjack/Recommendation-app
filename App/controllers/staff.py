@@ -6,7 +6,7 @@ def get_staff(id):
     staff=Staff.query.get(id)
     if staff:
         return staff.toJSON()
-    return
+    return none
 
 def get_all_staff():
     return Staff.query.all()

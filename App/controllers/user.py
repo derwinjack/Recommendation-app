@@ -10,12 +10,12 @@ def create_user(email, password, userType, firstName, lastName):
     return newuser
 
 # SIGNUP
-def user_signup(userdata):
-    newuser = create_user(email=userdata['email'],
-        password=userdata['password'],
-        userType=userdata['userType'],
-        firstName=userdata['firstName'],
-        lastName=userdata['lastName'])    
+def user_signup(firstName, lastName, email, password, userType):
+    newuser = create_user(email=email,
+        password=password,
+        userType=userType,
+        firstName=firstName,
+        lastName=lastName)
     try:
         db.session.add(newuser)
         db.session.commit()
