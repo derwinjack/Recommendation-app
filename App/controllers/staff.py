@@ -21,6 +21,8 @@ def get_all_staff_json():
 def get_staff_by_firstName(firstName):
     staff= Staff.query.filter_by(firstName=firstName).all()
     staff = [staf.toJSON() for staf in staff]
+    if staff==[]:
+        return None
     return jsonify(staff)
 
 def get_staff_by_lastName(lastName):
