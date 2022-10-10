@@ -10,5 +10,3 @@ def send_recommendation(studentID, recURL):
 def get_all_recommendations(studentID):
     student = User.get_user(studentID)
     return jsonify(student.recommendation)
-
-

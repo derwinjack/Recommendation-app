@@ -1,4 +1,4 @@
-from App.models import User,Student,Staff
+from App.models import User, Student, Staff
 from App.database import db
 from sqlalchemy.exc import IntegrityError
 
@@ -40,7 +40,7 @@ def get_all_users():
 def get_all_users_json():
     users = User.query.all()
     if not users:
-        return []
+        return None
     users = [user.toJSON() for user in users]
     return users
 

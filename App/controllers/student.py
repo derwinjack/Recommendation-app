@@ -16,6 +16,6 @@ def get_all_students():
 def get_all_students_json():
     students = get_all_students()
     if not students:
-        return []
+        return None
     students = [student.toJSON() for student in students]
     return students

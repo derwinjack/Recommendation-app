@@ -14,8 +14,15 @@ def get_all_staff():
 def get_all_staff_json():
     staff = get_all_staff()
     if not staff:
-        return []
+        return None
     staff = [staf.toJSON() for staf in staff]
+    return staff
+
+def get_all_staff_notifs_json():
+    staff = get_all_staff()
+    if not staff:
+        return None
+    staff = [staf.toJSON_with_notifications() for staf in staff]
     return staff
 
 def get_staff_by_firstName(firstName):
@@ -38,3 +45,15 @@ def get_staff_by_name(firstName, lastName):
     if staff == []:
         return None
     return jsonify(staff)
+
+def get_notificationFeed(sentToStaffID):
+    staff = get_staff(sentToStaffID)
+    return staff.notificationFeed
+    # return NotificationFeed.query.filter_by(sentToStaffID=sentToStaffID).all()
+
+def get_notificationFeed_json(sentToStaffID):
+    notifs = get_notificationFeed(sentToStaffID)
+    if not notifs:
+        return None
+    result = [notif.toJSON() for notif in notifs]
+    return result

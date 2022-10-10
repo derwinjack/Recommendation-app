@@ -10,6 +10,6 @@ def get_all_recommendations():
 def get_all_recommendations_json():
     recommendations = get_all_recommendations()
     if not recommendations:
-        return []
+        return None
     recommendations = [recommendation.toJSON() for recommendation in recommendations]
     return recommendations

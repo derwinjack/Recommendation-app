@@ -14,5 +14,5 @@ class RecommendationListing(db.Model):
         return{
             'rID': self.rID,
             'studentID': self.studentID,
-            'recommendations': self.recommendations.toJSON(),
+            'recommendations': self.recommendations.toJSON()
         }

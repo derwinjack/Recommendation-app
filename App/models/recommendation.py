@@ -14,7 +14,7 @@ def toJSON(self):
     return{
         'recID': self.recID,
         'recURL': self.recURL,
-        'sentFromStaffID': self.sentFromStaffID,
+        'sentFromStaffID': self.sentFromStaffID
     }
 
     
