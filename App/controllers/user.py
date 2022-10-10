@@ -1,7 +1,9 @@
 from App.models import User, Student, Staff
 from App.database import db
 from sqlalchemy.exc import IntegrityError
+from flask import Response
 
+# Create new User
 def create_user(email, password, userType, firstName, lastName):
     if (userType=="student"):
         newuser = Student(email=email, password=password, userType=userType, firstName=firstName, lastName=lastName)
@@ -22,18 +24,14 @@ def user_signup(firstName, lastName, email, password, userType):
         db.session.flush()
     except IntegrityError: # attempted to insert a duplicate user
         db.session.rollback()
-        return 'user already exists with this email' # error message
-    return 'user created successfully' # success
+        return Response({'user already exists with this email'}, status=400) #error message
+    return Response({'user created successfully'}, status=201) # success
 
-# def get_users_by_firstName(firstName):
-#     return User.query.filter_by(firstName=firstName).all()
-
-# def get_users_by_lastName(lastName):
-#     return User.query.filter_by(lastName=lastName).all()
-
+# get User by id
 def get_user(id):
     return User.query.get(id)
 
+# get all User objects
 def get_all_users():
     return User.query.all()
 
@@ -43,12 +41,3 @@ def get_all_users_json():
         return None
     users = [user.toJSON() for user in users]
     return users
-
-def update_user(id, email):
-    user = get_user(id)
-    if user:
-        user.email = email
-        db.session.add(user)
-        return db.session.commit()
-    return None
-

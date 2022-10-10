@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, jsonify, request, send_from_directory
+from flask import Blueprint, render_template, jsonify, request, send_from_directory, Response
 from flask_jwt import jwt_required
 
 from App.controllers import (
@@ -12,27 +12,6 @@ from App.controllers import (
 )
 
 staff_views = Blueprint('staff_views', __name__, template_folder='../templates')
-
-@staff_views.route('/view/staff', methods=['GET'])
-def get_staff_page():
-    staff = get_all_staff()
-    return render_template('users.html', users=staff)
-
-@staff_views.route('/staff', methods=['GET'])
-def staff():
-    staff = get_all_staff_json()
-    if staff:
-        return jsonify(staff)
-    return ("No staff users recorded")
-
-@staff_views.route('/staff/feeds', methods=['GET'])
-def staff_notifs():
-    staff = get_all_staff_notifs_json()
-    if staff:
-        return jsonify(staff)
-    return ("No staff users recorded")
-
-
 
 
 # SEARCH
@@ -61,4 +40,29 @@ def search():
                     staff=get_staff_by_lastName(ln)
                     if staff:
                         return staff
-    return ('staff member not found')
+    return Response({'staff member not found'}, status=404)
+
+
+
+# routes for testing purposes
+@staff_views.route('/view/staff', methods=['GET'])
+def get_staff_page():
+    staff = get_all_staff()
+    return render_template('users.html', users=staff)
+
+# JSON view all Staff
+@staff_views.route('/staff', methods=['GET'])
+def staff():
+    staff = get_all_staff_json()
+    if staff:
+        return jsonify(staff)
+    return ("No staff users recorded")
+
+# JSON view all staff + their notification feed
+@staff_views.route('/feeds', methods=['GET'])
+def staff_notifs():
+    staff = get_all_staff_notifs_json()
+    if staff:
+        return jsonify(staff)
+    return ("No staff users recorded")
+

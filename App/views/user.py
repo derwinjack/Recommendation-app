@@ -13,6 +13,19 @@ from App.controllers import (
 
 user_views = Blueprint('user_views', __name__, template_folder='../templates')
 
+
+
+# SIGNUP
+@user_views.route('/signup', methods=['POST'])
+def signup():
+    data = request.get_json()
+    return user_signup(data['firstName'], data['lastName'], data['email'], data['password'], data['userType'])
+
+
+
+
+# Routes for testing purposes
+
 # View all Users
 @user_views.route('/view/users', methods=['GET'])
 def get_user_page():
@@ -25,17 +38,13 @@ def client_app():
     users = get_all_users_json()
     return jsonify(users)
 
-# SIGNUP
-@user_views.route('/signup', methods=['POST'])
-def signup():
-    data = request.get_json()
-    return user_signup(data['firstName'], data['lastName'], data['email'], data['password'], data['userType'])
-
+# check identity of current user
 @user_views.route('/identify', methods=['GET'])
 @jwt_required()
 def identify_user_action():
     return jsonify({'message': f"email: {current_identity.email}, id : {current_identity.id}"})
 
+# STATIC View all Users
 @user_views.route('/static/users', methods=['GET'])
 def static_user_page():
   return send_from_directory('static', 'static-user.html')

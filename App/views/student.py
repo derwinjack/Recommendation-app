@@ -9,12 +9,13 @@ from App.controllers import (
 
 student_views = Blueprint('student_views', __name__, template_folder='../templates')
 
-
+# Routes for testing purposes
 @student_views.route('/view/students', methods=['GET'])
 def get_students_page():
     students = get_all_students()
     return render_template('users.html', users=students)
 
+# JSON view all Students
 @student_views.route('/students', methods=['GET'])
 def get_students():
     students = get_all_students_json()

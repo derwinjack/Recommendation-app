@@ -16,8 +16,7 @@ def send_notification(sentFromStudentID, requestBody, sentToStaffID):
     # get staff feed - notif list
     staff = Staff.query.get(sentToStaffID)
     # new notif
-    newNotif = create_notification(sentFromStudentID, requestBody, sentToStaffID, "unread")
-    # if feed not empty
+    newNotif = create_notification(sentToStaffID, sentFromStudentID, requestBody, "unread")
     # add notif to list
     staff.notificationFeed.append(newNotif)
     try:
@@ -29,7 +28,6 @@ def send_notification(sentFromStudentID, requestBody, sentToStaffID):
     result = [notif.toJSON() for notif in staff.notificationFeed]
     return result
 
-
 def get_all_notifs():
     return Notification.query.all()
 
@@ -39,6 +37,3 @@ def get_all_notifs_json():
         return None
     notifs = [notif.toJSON() for notif in notifs]
     return notifs
-
-def get_user_notif(notifID, staffID):
-    return Staff.query.get(staffID).notificationFeed

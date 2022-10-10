@@ -46,13 +46,12 @@ def get_staff_by_name(firstName, lastName):
         return None
     return jsonify(staff)
 
-def get_notificationFeed(sentToStaffID):
+def get_staff_notificationFeed(sentToStaffID):
     staff = get_staff(sentToStaffID)
     return staff.notificationFeed
-    # return NotificationFeed.query.filter_by(sentToStaffID=sentToStaffID).all()
 
-def get_notificationFeed_json(sentToStaffID):
-    notifs = get_notificationFeed(sentToStaffID)
+def get_staff_notificationFeed_json(sentToStaffID):
+    notifs = get_staff_notificationFeed(sentToStaffID)
     if not notifs:
         return None
     result = [notif.toJSON() for notif in notifs]
