@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, jsonify, request, send_from_directory
+from flask import Blueprint, render_template, jsonify, request, send_from_directory, Response
 from flask_jwt import jwt_required, current_identity
 
 from App.controllers import (
@@ -18,32 +18,29 @@ def sendNotification():
         data = request.get_json()
         staff = get_staff(data['sentToStaffID'])
         if not staff:
-            return ("staff user not found")
-        feed = send_notification(current_identity.id, data['requestBody'], data['sentToStaffID'])
-        return jsonify(feed)
-        if feed:
-            return ('request sent successfully')
-        else:
-            return ("notification could not be sent")
-    return ("Staff cannot perform this action")
+            return Response({'staff member not found'}, status=404)
+        send_notification(current_identity.id, data['requestBody'], data['sentToStaffID'])
+        return Response({'request sent successfully'}, status=200)
+    return Response({"staff cannot perform this action"}, status=401)
 
 
-# # View Notification
-# @notification_views.route('/notifications/<notifID>', methods=['GET'])
-# @jwt_required()
-# def view_notif(notifID):
-#     if get_staff(current_identity.id):
-#         # notif = get_user_notif(notifID, current_identity.id)
-#         if notif:
-#             return jsonify(notif.toJSON())
-#         return ("No notification found for this user with that ID")
-#     return ("Students cannot perform this action")
+# View Notification
+@notification_views.route('/notifications/<notifID>', methods=['GET'])
+@jwt_required()
+def view_notif(notifID):
+    get_notif
+    if get_staff(current_identity.id):
+        # notif = get_user_notif(notifID, current_identity.id)
+        if notif:
+            return jsonify(notif.toJSON())
+        return ("No notification found for this user with that ID")
+    return ("Students cannot perform this action")
 
 
 
 # Routes for testing purposes
 # get all notification objects
-@notification_views.route('/notifications', methods=['GET'])
+@notification_views.route('/notifs', methods=['GET'])
 def get_all_notifications():
     notifs = get_all_notifs_json()
     return jsonify(notifs)

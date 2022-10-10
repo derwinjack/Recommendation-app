@@ -5,7 +5,7 @@ from flask import jsonify
 def get_staff(id):
     staff=Staff.query.get(id)
     if staff:
-        return staff.toJSON()
+        return staff
     return None
 
 def get_all_staff():
@@ -46,13 +46,14 @@ def get_staff_by_name(firstName, lastName):
         return None
     return jsonify(staff)
 
-def get_staff_notificationFeed(sentToStaffID):
+def get_staff_feed(sentToStaffID):
     staff = get_staff(sentToStaffID)
     return staff.notificationFeed
 
-def get_staff_notificationFeed_json(sentToStaffID):
-    notifs = get_staff_notificationFeed(sentToStaffID)
-    if not notifs:
-        return None
-    result = [notif.toJSON() for notif in notifs]
-    return result
+# get the notification feed for the current user
+def get_staff_feed_json(sentToStaffID):
+    notifs = get_staff_feed(sentToStaffID)
+    if notifs:
+        return [notif.toJSON() for notif in notifs]
+    return None
+

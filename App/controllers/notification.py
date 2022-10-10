@@ -14,7 +14,7 @@ def create_notification(sentToStaffID,sentFromStudentID,requestBody,status):
 
 def send_notification(sentFromStudentID, requestBody, sentToStaffID):
     # get staff feed - notif list
-    staff = Staff.query.get(sentToStaffID)
+    staff = get_staff(sentToStaffID)
     # new notif
     newNotif = create_notification(sentToStaffID, sentFromStudentID, requestBody, "unread")
     # add notif to list
@@ -25,8 +25,7 @@ def send_notification(sentFromStudentID, requestBody, sentToStaffID):
     except IntegrityError:
         db.session.rollback()
         return None
-    result = [notif.toJSON() for notif in staff.notificationFeed]
-    return result
+    return staff
 
 def get_all_notifs():
     return Notification.query.all()
@@ -37,3 +36,8 @@ def get_all_notifs_json():
         return None
     notifs = [notif.toJSON() for notif in notifs]
     return notifs
+
+# gets a notification from a user's notif feed
+def get_user_notif(staffID, notifID):
+    user = get_user(staffID)
+    return Notification.query.get(notifID)

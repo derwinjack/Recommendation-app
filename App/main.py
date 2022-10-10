@@ -20,7 +20,6 @@ from App.views import (
     student_views,
     staff_views,
     notification_views,
-    # feed_views,
     # recommendation_views,
     listing_views,
 )
@@ -33,7 +32,6 @@ views = [
     student_views,
     staff_views,
     notification_views,
-    # feed_views,
     # recommendation_views,
     listing_views
 ]

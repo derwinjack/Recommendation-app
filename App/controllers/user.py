@@ -21,7 +21,6 @@ def user_signup(firstName, lastName, email, password, userType):
     try:
         db.session.add(newuser)
         db.session.commit()
-        db.session.flush()
     except IntegrityError: # attempted to insert a duplicate user
         db.session.rollback()
         return Response({'user already exists with this email'}, status=400) #error message

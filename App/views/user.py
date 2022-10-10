@@ -14,7 +14,6 @@ from App.controllers import (
 user_views = Blueprint('user_views', __name__, template_folder='../templates')
 
 
-
 # SIGNUP
 @user_views.route('/signup', methods=['POST'])
 def signup():
@@ -22,10 +21,7 @@ def signup():
     return user_signup(data['firstName'], data['lastName'], data['email'], data['password'], data['userType'])
 
 
-
-
 # Routes for testing purposes
-
 # View all Users
 @user_views.route('/view/users', methods=['GET'])
 def get_user_page():
