@@ -4,7 +4,8 @@ from flask_jwt import jwt_required, current_identity
 from App.controllers import (
     send_notification,
     get_all_notifs_json,
-    get_staff
+    get_staff,
+    get_user_notif
 )
 
 notification_views = Blueprint('notification_views', __name__, template_folder='../templates')
@@ -28,13 +29,15 @@ def sendNotification():
 @notification_views.route('/notifications/<notifID>', methods=['GET'])
 @jwt_required()
 def view_notif(notifID):
-    
-    if get_staff(current_identity.id):
-        # notif = get_user_notif(notifID, current_identity.id)
+    staff = get_staff(current_identity.id)
+    if staff:
+        if not staff.notificationFeed:
+            return Response({"no notifications found for this user"}, status=404)
+        notif = get_user_notif(current_identity.id, notifID)
         if notif:
             return jsonify(notif.toJSON())
-        return ("No notification found for this user with that ID")
-    return ("Students cannot perform this action")
+        return Response({"notification with id " + notifID + " not found"}, status=404)
+    return Response({"students cannot perform this action"}, status=401)
 
 
 

@@ -39,5 +39,4 @@ def get_all_notifs_json():
 
 # gets a notification from a user's notif feed
 def get_user_notif(staffID, notifID):
-    user = get_user(staffID)
-    return Notification.query.get(notifID)
+    return Notification.query.filter_by(sentToStaffID=staffID, notifID=notifID).first()
