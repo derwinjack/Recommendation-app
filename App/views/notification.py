@@ -28,7 +28,7 @@ def sendNotification():
 @notification_views.route('/notifications/<notifID>', methods=['GET'])
 @jwt_required()
 def view_notif(notifID):
-    get_notif
+    
     if get_staff(current_identity.id):
         # notif = get_user_notif(notifID, current_identity.id)
         if notif:

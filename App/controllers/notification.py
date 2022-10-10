@@ -1,4 +1,4 @@
-from App.models import Notification, Staff
+from App.models import Notification
 from App.database import db
 from sqlalchemy.exc import IntegrityError
 
