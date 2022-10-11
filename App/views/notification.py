@@ -51,7 +51,7 @@ def approve_request(notifID):
         notif = approve_notif(staff.staffID, notifID, status['status'])
         if notif:
             return Response({"request " + status['status']}, status=200)
-        return Response({"request could not be completed"}, status=401)
+        return Response({"invalid request"}, status=401)
     return Response({"students cannot perform this action"}, status=401)
 
 

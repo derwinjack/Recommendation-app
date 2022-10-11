@@ -20,8 +20,7 @@ from App.views import (
     student_views,
     staff_views,
     notification_views,
-    # recommendation_views,
-    listing_views,
+    recommendation_views,
 )
 
 # New views must be imported and added to this list
@@ -32,8 +31,7 @@ views = [
     student_views,
     staff_views,
     notification_views,
-    # recommendation_views,
-    listing_views
+    recommendation_views
 ]
 
 def add_views(app, views):

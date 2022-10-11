@@ -1,12 +1,6 @@
 from App.models import Student
 from App.database import db
 
-def get_students_by_firstName(firstName):
-    return Student.query.filter_by(firstName=firstName).all()
-
-def get_students_by_lastName(lastName):
-    return Student.query.filter_by(lastName=lastName).all()
-
 def get_student(id):
     return Student.query.get(id)
 
@@ -18,4 +12,21 @@ def get_all_students_json():
     if not students:
         return None
     students = [student.toJSON() for student in students]
+    return students
+
+def get_student_reclist(studentID):
+    student = get_student(studentID)
+    return student.recommendationList
+
+def get_student_reclist_json(studentID):
+    recs = get_student_reclist(studentID)
+    if recs:
+        return [rec.toJSON for rec in recs]
+    return None
+
+def get_all_recommendations_json():
+    students = get_all_students()
+    if not students:
+        return None
+    students = [student.toJSON_with_recommendations() for student in students]
     return students

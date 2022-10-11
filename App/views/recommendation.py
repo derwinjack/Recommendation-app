@@ -1,17 +1,33 @@
-# from flask import Blueprint, render_template, jsonify, request, send_from_directory
-# from flask_jwt import jwt_required, current_identity
+from flask import Blueprint, render_template, jsonify, request, send_from_directory, Response
+from flask_jwt import jwt_required, current_identity
 
 
-# from App.controllers import (
-#     create_user, 
-#     get_all_users,
-#     get_all_users_json,
-# )
+from App.controllers import (
+    get_all_recommendations,
+    get_all_recommendations_json,
+    get_recommendation,
+    get_student
+)
 
-# user_views = Blueprint('user_views', __name__, template_folder='../templates')
+recommendation_views = Blueprint('recommendation_views', __name__, template_folder='../templates')
+
+# VIEW RECOMMENDATION
+@recommendation_views.route('/recommendations/<recID>', methods=['GET'])
+@jwt_required()
+def view_recommendation(recID):
+    studID = current_identity.id
+    student = get_student(studID)
+    if student:
+        rec = get_recommendation(studID, recID)
+        if rec:
+            return rec.toJSON()
+        return Response({'recommendation ' + recID + ' not found'})
+    return Response({"staff cannot perform this action"}, status=401)
 
 
-# @user_views.route('/users', methods=['GET'])
-# def get_user_page():
-#     users = get_all_users()
-#     return render_template('users.html', users=users)
+# routes for testing purposes
+# View all recommendations for all users
+@recommendation_views.route('/recs', methods=['GET'])
+def get_all_recs():
+    return jsonify(get_all_recommendations_json())
+    
