@@ -5,7 +5,8 @@ from App.controllers import (
     send_notification,
     get_all_notifs_json,
     get_staff,
-    get_user_notif
+    get_user_notif,
+    approve_notif
 )
 
 notification_views = Blueprint('notification_views', __name__, template_folder='../templates')
@@ -25,7 +26,7 @@ def sendNotification():
     return Response({"staff cannot perform this action"}, status=401)
 
 
-# View Notification
+# VIEW NOTIFICATION
 @notification_views.route('/notifications/<notifID>', methods=['GET'])
 @jwt_required()
 def view_notif(notifID):
@@ -39,6 +40,19 @@ def view_notif(notifID):
         return Response({"notification with id " + notifID + " not found"}, status=404)
     return Response({"students cannot perform this action"}, status=401)
 
+
+# APPROVE REQUEST
+@notification_views.route('/request/<notifID>', methods=['POST'])
+@jwt_required()
+def approve_request(notifID):
+    status = request.get_json()
+    staff = get_staff(current_identity.id)
+    if staff:
+        notif = approve_notif(staff.staffID, notifID, status['status'])
+        if notif:
+            return Response({"request " + status['status']}, status=200)
+        return Response({"request could not be completed"}, status=401)
+    return Response({"students cannot perform this action"}, status=401)
 
 
 # Routes for testing purposes

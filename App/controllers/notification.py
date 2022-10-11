@@ -40,3 +40,17 @@ def get_all_notifs_json():
 # gets a notification from a user's notif feed
 def get_user_notif(staffID, notifID):
     return Notification.query.filter_by(sentToStaffID=staffID, notifID=notifID).first()
+
+# approve notif
+def approve_notif(staffID, notifID, status):
+    notif = get_user_notif(staffID, notifID)
+    if notif:
+        notif.status = status
+        try:
+            db.session.add(notif)
+            db.session.commit()
+        except IntegrityError:
+            db.session.rollback()
+            return None
+    return notif
+    
