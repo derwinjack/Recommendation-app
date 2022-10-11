@@ -20,7 +20,7 @@ def get_recommendations():
     if get_student(studentID):
         recs = get_student_reclist_json(studentID)
         if recs:
-            return recs
+            return jsonify(recs)
         return Response({'no recommendations found for this user'}, status=404)
     return Response("staff cannot perform this action", status=401)
 
