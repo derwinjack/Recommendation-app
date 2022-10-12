@@ -20,7 +20,7 @@ def sendRecommendation():
         if not student:
             return Response({'student not found'}, status=404)
         send_recommendation(current_identity.id, data['sentToStudentID'], data['recURL'])
-        return Response({'request sent successfully'}, status=200)
+        return Response({'recommendation sent'}, status=200)
     return Response({"students cannot perform this action"}, status=401)
 
 
