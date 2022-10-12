@@ -5,7 +5,8 @@ from App.controllers import (
     send_recommendation,
     get_all_recommendations_json,
     get_student,
-    get_recommendation   
+    get_recommendation,
+    get_student_reclist_json
 )
 
 recommendation_views = Blueprint('recommendation_views', __name__, template_folder='../templates')
@@ -31,10 +32,13 @@ def view_recommendation(recID):
     studID = current_identity.id
     student = get_student(studID)
     if student:
+        recs = get_student_reclist_json(studID)
+        if not recs:
+            return Response({"no recommendations found for this user"}, status=404)
         rec = get_recommendation(studID, recID)
         if rec:
             return jsonify(rec)
-        return Response({'recommendation ' + recID + ' not found'})
+        return Response({'recommendation with id ' + recID + ' not found'}, status=404)
     return Response({"staff cannot perform this action"}, status=401)
 
 
