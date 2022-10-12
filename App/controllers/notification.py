@@ -1,6 +1,7 @@
 from App.models import Notification
 from App.database import db
 from sqlalchemy.exc import IntegrityError
+from App.controllers import get_staff
 
 def create_notification(sentToStaffID,sentFromStudentID,requestBody,status):
     newNotif = Notification(sentToStaffID=sentToStaffID,sentFromStudentID=sentFromStudentID, requestBody=requestBody, status="unread")

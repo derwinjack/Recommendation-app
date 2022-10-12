@@ -15,35 +15,6 @@ from App.controllers import (
 staff_views = Blueprint('staff_views', __name__, template_folder='../templates')
 
 
-# SEARCH
-@staff_views.route('/search', methods=['GET'])
-@jwt_required()
-def search():
-    sID = request.args.get('staffID')
-    fn = request.args.get('firstName')
-    ln = request.args.get('lastName')
-    if (sID):
-        staff=get_staff(sID)
-        if staff:
-            return staff.toJSON()
-    else:
-        if (fn and ln):
-            staff = get_staff_by_name(fn,ln)
-            if staff:
-                return staff
-        else:
-            if (fn):
-                staff=get_staff_by_firstName(fn)
-                if staff:
-                    return staff
-            else:
-                if(ln):
-                    staff=get_staff_by_lastName(ln)
-                    if staff:
-                        return staff
-    return Response({'staff member not found'}, status=404)
-
-
 # VIEW NOTIFICATION FEED
 @staff_views.route('/notifications', methods=['GET'])
 @jwt_required()

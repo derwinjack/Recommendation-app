@@ -1,7 +1,6 @@
 from flask import Blueprint, render_template, jsonify, request, send_from_directory, Response
 from flask_jwt import jwt_required, current_identity
 
-
 from App.controllers import (
     send_recommendation,
     get_all_recommendations_json,

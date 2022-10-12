@@ -11,11 +11,10 @@ from App.controllers import (
 
 notification_views = Blueprint('notification_views', __name__, template_folder='../templates')
 
-
 # SEND REQUEST TO STAFF MEMBER
 @notification_views.route('/request/send', methods=['POST'])
 @jwt_required()
-def sendNotification():
+def sendRequest():
     if not get_staff(current_identity.id):
         data = request.get_json()
         staff = get_staff(data['sentToStaffID'])
