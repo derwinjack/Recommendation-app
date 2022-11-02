@@ -27,7 +27,7 @@ def createAccount():
 @user_views.route('/identify', methods=['GET'])
 @jwt_required()
 def identify_user_action():
-    return jsonify({'message': f"email: {current_identity.email}, id : {current_identity.id}"})
+    return jsonify({'message': f"id : {current_identity.id}, email: {current_identity.email}, userType: {current_identity.userType}"})
 
 # View all Users
 @user_views.route('/view/users', methods=['GET'])
