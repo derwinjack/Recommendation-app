@@ -9,6 +9,12 @@ class Notification(db.Model):
     requestBody = db.Column(db.String, nullable=False)
     status = db.Column(db.String, nullable=False)
 
+    def __init__(self, sentToStaffID,sentFromStudentID, requestBody):
+        self.sentToStaffID = sentToStaffID
+        self.sentFromStudentID=sentFromStudentID
+        self.requestBody=requestBody
+        self.status="unread"
+        
     def toJSON(self):
         return{
             'notifID': self.notifID,

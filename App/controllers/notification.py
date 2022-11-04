@@ -3,8 +3,8 @@ from App.database import db
 from sqlalchemy.exc import IntegrityError
 from App.controllers import get_staff
 
-def create_notification(sentToStaffID,sentFromStudentID,requestBody,status):
-    newNotif = Notification(sentToStaffID=sentToStaffID,sentFromStudentID=sentFromStudentID, requestBody=requestBody, status="unread")
+def create_notification(sentToStaffID,sentFromStudentID,requestBody):
+    newNotif = Notification(sentToStaffID=sentToStaffID,sentFromStudentID=sentFromStudentID, requestBody=requestBody)
     try:
         db.session.add(newNotif)
         db.session.commit()
@@ -17,7 +17,7 @@ def send_notification(sentFromStudentID, requestBody, sentToStaffID):
     # get staff feed - notif list
     staff = get_staff(sentToStaffID)
     # new notif
-    newNotif = create_notification(sentToStaffID, sentFromStudentID, requestBody, "unread")
+    newNotif = create_notification(sentToStaffID, sentFromStudentID, requestBody)
     # add notif to list
     staff.notificationFeed.append(newNotif)
     try:

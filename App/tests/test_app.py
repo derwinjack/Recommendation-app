@@ -8,9 +8,6 @@ from App.controllers import (
     create_user,
     get_all_users_json,
     authenticate,
-    get_user,
-    get_user_by_username,
-    update_user
 )
 
 from wsgi import app
@@ -46,7 +43,7 @@ class UserUnitTests(unittest.TestCase):
     def test_staff_toJSON(self):
         staff = Staff("bob@mail.com", "pass", "staff", "Bob", "Jones")
         staff_json = staff.toJSON()
-        self.assertDictEqual(staff_json, {"staffID":None, "email":"rob@mail.com", "userType":"staff", "firstName":"Bob","lastName":"Jones"})
+        self.assertDictEqual(staff_json, {"staffID":None, "email":"bob@mail.com", "userType":"staff", "firstName":"Bob","lastName":"Jones"})
     
     # test_hashed_password()
     def test_hashed_password(self):
@@ -81,9 +78,9 @@ class UserUnitTests(unittest.TestCase):
 
     #test_notif_toJSON()
     def test_notif_toJSON(self):
-        notif = Notification("1", "2", "www.link.com/recURL")
+        notif = Notification("1", "2", "Please send a recommendation to me")
         notif_json = notif.toJSON()
-        self.assertDictEqual(notif_json, { "notifID":"None", "sentToStaffID": "1", "sentFromStudentID":"2", "requestBody":"Please send a recommendation to me", "status":"unread" })
+        self.assertDictEqual(notif_json, {"notifID":None, "sentToStaffID": "1", "sentFromStudentID":"2", "requestBody":"Please send a recommendation to me", "status":"unread"})
 
 
 '''
