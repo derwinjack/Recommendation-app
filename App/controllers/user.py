@@ -8,7 +8,7 @@ def create_user(email, password, userType, firstName, lastName):
     if (userType=="student"):
         newuser = Student(email=email, password=password, userType=userType, firstName=firstName, lastName=lastName)
     else:
-        if (userType=="staff"):    
+        if (userType=="staff"):
             newuser = Staff(email=email, password=password, userType=userType, firstName=firstName, lastName=lastName)
     return newuser
 

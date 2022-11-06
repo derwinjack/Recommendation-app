@@ -4,17 +4,17 @@ from sqlalchemy.exc import IntegrityError
 
 def create_recommendation(sentFromStaffID, sentToStudentID, recURL):
     newrec = Recommendation(sentFromStaffID=sentFromStaffID, sentToStudentID=sentToStudentID, recURL=recURL)
+    return newrec
+
+def send_recommendation(sentFromStaffID, sentToStudentID, recURL):
+    student = Student.query.get(sentToStudentID)
+    newrec = create_recommendation(sentFromStaffID, sentToStudentID, recURL)
     try:
         db.session.add(newrec)
         db.session.commit()
     except IntegrityError:
         db.session.rollback()
         return None
-    return newrec
-
-def send_recommendation(sentFromStaffID, sentToStudentID, recURL):
-    student = Student.query.get(sentToStudentID)
-    newrec = create_recommendation(sentFromStaffID, sentToStudentID, recURL)
     student.recommendationList.append(newrec)
     try:
         db.session.add(student)

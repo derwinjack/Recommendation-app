@@ -3,13 +3,9 @@ from flask_jwt import jwt_required, current_identity
 
 from App.controllers import (
     get_student,
-    get_staff,
-    get_staff_by_name,
-    get_staff_by_firstName,
-    get_staff_by_lastName,
+    search_staff,
     get_all_students,
     get_all_students_json,
-    get_all_recommendations_json,
     get_student_reclist_json
 )
 
@@ -25,24 +21,18 @@ def searchStaff():
         fn = request.args.get('firstName')
         ln = request.args.get('lastName')
         if (sID):
-            staff=get_staff(sID)
-            if staff:
-                return staff.toJSON()
+            staff=search_staff("ID", sID)
         else:
             if (fn and ln):
-                staff = get_staff_by_name(fn,ln)
-                if staff:
-                    return staff
+                staff=search_staff("name", fn + "," + ln)
             else:
                 if (fn):
-                    staff=get_staff_by_firstName(fn)
-                    if staff:
-                        return staff
+                    staff=search_staff("firstName", fn)
                 else:
                     if(ln):
-                        staff=get_staff_by_lastName(ln)
-                        if staff:
-                            return staff
+                        staff=search_staff("lastName", ln)
+        if staff:
+            return staff
         return Response({'staff member not found'}, status=404)
     return Response({"staff cannot perform this action"}, status=401)
 

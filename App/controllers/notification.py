@@ -5,12 +5,6 @@ from App.controllers import get_staff
 
 def create_notification(sentToStaffID,sentFromStudentID,requestBody):
     newNotif = Notification(sentToStaffID=sentToStaffID,sentFromStudentID=sentFromStudentID, requestBody=requestBody)
-    try:
-        db.session.add(newNotif)
-        db.session.commit()
-    except IntegrityError:
-        db.session.rollback()
-        return None
     return newNotif
 
 def send_notification(sentFromStudentID, requestBody, sentToStaffID):
@@ -18,6 +12,12 @@ def send_notification(sentFromStudentID, requestBody, sentToStaffID):
     staff = get_staff(sentToStaffID)
     # new notif
     newNotif = create_notification(sentToStaffID, sentFromStudentID, requestBody)
+    try:
+        db.session.add(newNotif)
+        db.session.commit()
+    except IntegrityError:
+        db.session.rollback()
+        return None
     # add notif to list
     staff.notificationFeed.append(newNotif)
     try:
@@ -42,11 +42,16 @@ def get_all_notifs_json():
 def get_user_notif(staffID, notifID):
     return Notification.query.filter_by(sentToStaffID=staffID, notifID=notifID).first()
 
+def change_status(notif, status):
+    if notif:
+        notif.status = status
+    return notif
+
 # approve notif
 def approve_notif(staffID, notifID, status):
     notif = get_user_notif(staffID, notifID)
+    notif = change_status(notif, status)
     if notif:
-        notif.status = status
         try:
             db.session.add(notif)
             db.session.commit()
