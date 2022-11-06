@@ -46,6 +46,20 @@ def get_staff_by_name(firstName, lastName):
         return None
     return jsonify(staff)
 
+def search_staff(type, keyword):
+    if (type=="ID"):
+        staff = get_staff(keyword)
+        return staff.toJSON()
+    else:
+        if (type=="name"):
+            name=keyword.split(",")
+            return get_staff_by_name(name[0], name[1])
+        if (type=="firstName"):
+            return get_staff_by_firstName(keyword)
+        if (type=="lastName"):
+            return get_staff_by_lastName(keyword)
+    return None
+
 def get_staff_feed(staffID):
     staff = get_staff(staffID)
     return staff.notificationFeed
