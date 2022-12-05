@@ -39,6 +39,7 @@ def add_views(app, views):
         app.register_blueprint(view)
 
 
+        
 def loadConfig(app, config):
     app.config['ENV'] = os.environ.get('ENV', 'DEVELOPMENT')
     delta = 7
@@ -57,6 +58,7 @@ def loadConfig(app, config):
     for key, value in config.items():
         app.config[key] = config[key]
 
+        
 def create_app(config={}):
     app = Flask(__name__, static_url_path='/static')
     CORS(app)
