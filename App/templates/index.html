@@ -1,10 +1,31 @@
 {% extends "layout.html" %}
-{% block title %}Flask MVC App{% endblock %}
-{% block page %}Flask MVC App{% endblock %}
+{% block title %}HomePage | StudentReccomender{% endblock %}
+{% block page %}HomePage{% endblock %}
+
+
+{% block link%}
+<ul id="nav-mobile" class="right">
+    <li><a href="/signup">Sign Up Now</a></li>
+    <li><a href="/login">Login</a></li>
+</ul>
+{% endblock %}
+
 
 {{ super() }}
 
 {% block content %}
-    <h1>Flask MVC</h1>
-    <p>This is a boileplate flask application which follows the MVC pattern for structuring the project.</p>
+    
+<h1>StudentReccomender</h1>
+<h3>Reccomend with ease Use the Student Reccomender</h3>
+<p>
+    <a class="button_text" href="/signup">Sign Up</a>
+    as either
+	<span class="button__text">As a Staff </span> or
+    <span class="button__text">As a student</span>
+</p>
+<p>
+    <br />
+    <a class="button__text" href="/login">Login</a> to begin
+</p>
+
 {% endblock %}
