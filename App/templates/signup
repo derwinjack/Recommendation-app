@@ -1,0 +1,82 @@
+{% extends "layout.html" %}
+{% block title %}Sign Up{% endblock %}
+{% block page %}Sign Up{% endblock %}
+
+{% block link%}
+<ul id="nav-mobile" class="right">
+    <li><a href="/login">Login</a></li>
+</ul>
+{% endblock %}
+
+{{ super() }}
+
+{% block content %}
+<main class="container">
+    <form class="card col s12" id="loginForm" method="POST" action="/signup" style="padding:1em">
+
+        <div class="row">
+            <div class="input-field col s12">
+                <input placeholder="First Name" id="firstName" name="firstName" type="text">
+                <label for="firstName">First Name</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <input placeholder="Last Name" id="lastName" name="lastName" type="text">
+                <label for="lastName">Last Name</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <input placeholder="Email" id="email" name="email" type="email">
+                <label for="email">Email</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <input placeholder="Password" name="password" id="password" type="password">
+                <label for="password">Password</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <input placeholder="Re-Enter Password" name="password2" id="password2" type="password">
+                <label for="password2">Re-Enter Password</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s12">
+                <label>User Type</label>
+                <table class="centered">
+                    <tbody>
+                        <tr>
+                            <td>
+                                <p>
+                                    <label>
+                                        <input class="with-gap" type="radio" id="type_staff" name="userType"
+                                            value="staff">
+                                        <span>Staff</span>
+                                    </label>
+                                </p>
+                            </td>
+                            <td>
+                                <p>
+                                    <label>
+                                        <input class="with-gap" type="radio" id="type_student" name="userType"
+                                            value="student" chedcked>
+                                        <span>Student</span>
+                                    </label>
+                                </p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="card-action">
+            <input type="submit" class="{{ colour_theme }} text-white btn" value="Sign Up">
+        </div>
+
+    </form>
+</main>
+{% endblock %}
