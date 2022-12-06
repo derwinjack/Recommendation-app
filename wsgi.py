@@ -1,10 +1,4 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Tue Dec  6 11:35:05 2022
 
-@author: admin
-"""
 
 import click, pytest, sys
 from flask import Flask
@@ -15,7 +9,6 @@ from App.database import db, create_db, get_migrate
 from sqlalchemy.exc import IntegrityError
 from App.main import create_app
 from App.controllers import (
-    create_request,
     create_user,
     get_all_users_json,
     get_all_users
@@ -105,18 +98,6 @@ def mockup_reccommendation_request():
         db.session.rollback()
 
 
-    create_request(staff2.staffID, student4.studentID, datetime.now() - timedelta(days=5), "Student 4 to staff 2!")
-    create_request(staff1.staffID, student3.studentID, datetime.now() + timedelta(days=2), "Student 3 to staff 1!")
-    create_request(staff1.staffID, student4.studentID, datetime.now() + timedelta(days=4), "Student 4 to staff 1!")
-    create_request(staff3.staffID, student1.studentID, datetime.now() - timedelta(days=12), "Student 1 to staff 3!")
-    create_request(staff1.staffID, student6.studentID, datetime.now() + timedelta(days=3), "Student 6 to staff 1!")
-    create_request(staff3.staffID, student6.studentID, datetime.now() + timedelta(days=5), "Student 6 to staff 3!")
-    create_request(staff1.staffID, student1.studentID, datetime.now() - timedelta(days=7), "Student 1 to staff 1!")
-    create_request(staff1.staffID, student5.studentID, datetime.now() + timedelta(days=3), "Student 5 to staff 1!")
-    create_request(staff2.staffID, student1.studentID, datetime.now() - timedelta(days=2), "Student 1 to staff 2!")
-    create_request(staff1.staffID, student2.studentID, datetime.now() + timedelta(days=8), "Student 2 to staff 1!")
-    create_request(staff4.staffID, student5.studentID, datetime.now() + timedelta(days=6), "Student 5 to staff 4!")
-    create_request(staff3.staffID, student2.studentID, datetime.now() + timedelta(days=1), "Student 2 to staff 3!")
 
 
     
