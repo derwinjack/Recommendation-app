@@ -9,6 +9,10 @@ class User(db.Model):
     firstName = db.Column(db.String, nullable=False)
     lastName = db.Column(db.String, nullable=False)
 
+    student = db.relationship('Student',backref=db.backref('user',lazy='joined'))
+    staff = db.relationship('Staff',backref=db.backref('user',lazy='joined'))
+
+
     def __init__(self, email, password, userType, firstName, lastName):
         self.email = email
         self.set_password(password)
@@ -32,5 +36,7 @@ class User(db.Model):
     def check_password(self, password):
         """Check hashed password."""
         return check_password_hash(self.password, password)
+
+
 
 
