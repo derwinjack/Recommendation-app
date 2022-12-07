@@ -1,12 +1,16 @@
-from App.models import Staff
+from App.models import Staff, User
 from App.database import db
 from flask import jsonify
+from flask_login import  LoginManager, current_user, login_user, login_required
 
-def get_staff(id):
-    staff=Staff.query.get(id)
+def get_staff(staffID):
+    staff=Staff.query.filter_by(id=staffID).first()
     if staff:
+        print(staff.toJSON())
         return staff
-    return None
+    else:
+        print(staffID)
+        return None
 
 def get_all_staff():
     return Staff.query.all()
@@ -40,11 +44,12 @@ def get_staff_by_lastName(lastName):
     return jsonify(staff)
 
 def get_staff_by_name(firstName, lastName):
-    staff=Staff.query.filter_by(firstName=firstName, lastName=lastName).all()
-    staff = [staf.toJSON() for staf in staff]
-    if staff == []:
+    staff=Staff.query.filter_by(firstName=firstName, lastName=lastName).first()
+    if staff:
+        return staff
+    else:
         return None
-    return jsonify(staff)
+        
 
 def search_staff(type, keyword):
     if (type=="ID"):
@@ -64,10 +69,10 @@ def get_staff_feed(staffID):
     staff = get_staff(staffID)
     return staff.notificationFeed
 
-# get the notification feed for the current user
 def get_staff_feed_json(staffID):
     notifs = get_staff_feed(staffID)
     if notifs:
         return [notif.toJSON() for notif in notifs]
     return None
+
 
