@@ -1,4 +1,5 @@
 
+
 import click, pytest, sys
 from flask import Flask
 from flask.cli import with_appcontext, AppGroup
@@ -20,7 +21,11 @@ migrate = get_migrate(app)
 @app.cli.command("init", help="Creates and initializes the database")
 def initialize():
     create_db(app)
-    print('database intialized')
+
+    newstudent = Student("rob@mail.com", "Rob", "Singh", "student", "pass")
+
+
+    print('database has been intialized')
 
 '''
 User Commands
@@ -65,36 +70,6 @@ def initialize():
     create_db(app)
     print('database intialized')
 
-    @app.cli.command("mockup_rec_req")
-def mockup_reccommendation_request():
-    student1 = create_user("student1@email.com", "student1", "student", "Stu", "Dent1")
-    student2 = create_user("student2@email.com", "student2", "student", "Stu", "Dent2")
-    student3 = create_user("student3@email.com", "student2", "student", "Stu", "Dent3")
-    student4 = create_user("student4@email.com", "student4", "student", "Stu", "Dent4")
-    student5 = create_user("student5@email.com", "student5", "student", "Stu", "Dent5")
-    student6 = create_user("student6@email.com", "student6", "student", "Stu", "Dent6")
-    staff1 = create_user("staff1@email.com", "staff1", "staff", "Sta", "Aff1")
-    staff2 = create_user("staff2@email.com", "staff2", "staff", "Sta", "Aff2")
-    staff3 = create_user("staff3@email.com", "staff3", "staff", "Sta", "Aff3")
-    staff4 = create_user("staff4@email.com", "staff4", "staff", "Sta", "Aff4")
-    
-    try:
-        db.session.add(student1)
-        db.session.add(staff3)
-        db.session.add(student6)
-        db.session.add(student2)
-        db.session.add(student5)
-        db.session.add(staff2)
-        db.session.add(student3)
-        db.session.add(staff4)
-        db.session.add(student4)
-        db.session.add(staff1)
-        db.session.commit()
-    except IntegrityError as e:
-        print("Creation failed: " + e)
-        db.session.rollback()
-    
-    
 '''
 Test Commands
 '''
