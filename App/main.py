@@ -1,5 +1,5 @@
 import os
-from flask import Flask
+from flask import Flask, flash, redirect, url_for
 from flask_login import LoginManager, current_user
 from flask_uploads import DOCUMENTS, IMAGES, TEXT, UploadSet, configure_uploads
 from flask_cors import CORS
@@ -11,7 +11,7 @@ from datetime import timedelta
 from App.database import create_db
 
 from App.controllers import (
-    setup_jwt
+    get_user,
 )
 
 from App.views import (
@@ -31,15 +31,33 @@ views = [
     student_views,
     staff_views,
     notification_views,
-    recommendation_views
+    recommendation_views,
 ]
+
+
+''' Begin Flask Login Functions '''
+login_manager = LoginManager()
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    return get_user(user_id)
+
+
+''' End Flask Login Functions '''
+''' Begin boilerplate code '''
 
 def add_views(app, views):
     for view in views:
         app.register_blueprint(view)
 
 
-        
+def invalid_route(e):
+    flash("Page not found. Redirected to homepage")
+    url = url_for('index_views.home_page')
+    return redirect(url), 404, {"Refresh": "1; url="+ url}
+
+
 def loadConfig(app, config):
     app.config['ENV'] = os.environ.get('ENV', 'DEVELOPMENT')
     delta = 7
@@ -58,7 +76,8 @@ def loadConfig(app, config):
     for key, value in config.items():
         app.config[key] = config[key]
 
-        
+
+
 def create_app(config={}):
     app = Flask(__name__, static_url_path='/static')
     CORS(app)
@@ -71,6 +90,8 @@ def create_app(config={}):
     configure_uploads(app, photos)
     add_views(app, views)
     create_db(app)
-    setup_jwt(app)
+    login_manager.init_app(app)
+    app.register_error_handler(404, invalid_route)
     app.app_context().push()
     return app
+
