@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, jsonify, request, send_from_directory, Response
 from flask_jwt import jwt_required, current_identity
+from flask_login import  LoginManager, current_user, login_user, login_required
 
 from App.controllers import (
     send_recommendation,
@@ -48,3 +49,4 @@ def view_recommendation(recID):
 def get_all_recs():
     return jsonify(get_all_recommendations_json())
     
+
