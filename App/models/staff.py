@@ -4,7 +4,9 @@ from App.models import User
 class Staff(User):
     staffID = db.Column(db.Integer, db.ForeignKey('user.id'), primary_key=True)
     # staff has a list of notification objects
+    recommendations = db.relationship('Recommendation',backref=db.backref('staff',lazy='joined'))
     notificationFeed = db.relationship('Notification', backref=db.backref('staff', lazy='joined'))
+    requestList= db.relationship('Request', backref= db.backref('Request', lazy='joined'))
     
     def toJSON(self):
         return {
