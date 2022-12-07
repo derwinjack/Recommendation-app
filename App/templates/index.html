@@ -15,17 +15,54 @@
 
 {% block content %}
     
-<h1>StudentReccomender</h1>
-<h3>Reccomend with ease Use the Student Reccomender</h3>
+<h1>SKAD Student Reccomender</h1>
+<h3>Reccomend with ease Use SKAD</h3>
 <p>
-    <a class="button_text" href="/signup">Sign Up</a>
-    as either
-	<span class="button__text">As a Staff </span> or
-    <span class="button__text">As a student</span>
+    <a class="signup" href="/signup">Sign Up</button>
+    
 </p>
 <p>
     <br />
-    <a class="button__text" href="/login">Login</a> to begin
+    <a class="login" href="/login">Login</button>
+   
 </p>
+
+<style>
+
+.signup{
+  margin: 10px;
+  outline: none;
+  height: 50px;
+  width: 80px;
+  background:#a829cf;
+  color: #fff;
+  font-size: 40px;
+}
+.signup {
+  transition-duration: 0.4s;
+}
+
+.signup:hover {
+  background-color: #ffffff; 
+  color: #a829cf;
+}
+.login{
+  margin: 10px;
+  outline: none;
+  height: 50px;
+  width: 80px;
+  background:#056592;
+  color: #fff;
+  font-size: 40px;
+}
+.login {
+  transition-duration: 0.4s;
+}
+
+.login:hover {
+  background-color: #ffffff; 
+  color: #056592;
+}
+</style>
 
 {% endblock %}
