@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <!-- <link href="style.css" rel="stylesheet" type="text/css" />--->
+</head>
+
+  <body>
+    <section class= "banner">
+      <header class="name">
+        <div class="webname" >
+          <h1>SKAD Student Reccomender</h1>
+        <h3>Reccomend with ease Use SKAD</h3>
+        </div>  
+      </header>
+      <header class = "navigation">
+        <div class= "staffUsername">
+          Hello, {{firstName}}
+        </div> 
+        <div class="functions">
+          <a class="logoutButton" href = "/logout">Logout</a>    
+        </section>
+        
+      </header>  
+      
+    </section>
+    
+    <section class="userBody">
+      <div class="notificationsDiv">
+        <div class="notificationTitle">Notifications</div>
+        {%for notification in notifications%}
+          <div class="notificationBox">
+            <a class = "request" href="/notifications/{{notification.notifID}}" method = "GET">{{notification.requestTitle}}</a>
+          </div>
+
+        {%endfor%}
+      </div>
+      <div class="accrejDiv">
+        <a class="acceptedButton" href="/staff/{{staffID}}/requests/accepted">Accepted Requests</a>  
+        <a class="rejectedButton" href="/staff/{{staffID}}/requests/rejected" method ="POST">Rejected Requests</a>
+        
+      </div>
+      
+    </section>
+    
+  </body>
+  
+</html>
