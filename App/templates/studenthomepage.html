@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>replit</title>
+</head>
+
+  <body>
+    <section class= "banner">
+      <header class="name">
+        <div class="webname" >
+          <h1>SKAD Student Reccomender</h1>
+          <h3>Reccomend with ease Use SKAD</h3>
+        </div>  
+      </header>
+      <header class = "navigation">
+        <div class= "studentUsername">
+          Hello,{{firstName}}
+        </div> 
+        <div class="functions">
+          <div class="requestButtonDiv">
+            <a class="fcc-btn" " href="/create/request">New Request</button>
+          </div>
+                    
+          <a class="logoutButton" href = "/logout">Logout</a>    
+        </section>
+        
+      </header>  
+      
+    </section>
+    <section class="userBody">
+      <div class="requestsDiv">
+        <div class="title">Requesets Made</div>
+        {%for request in requests%}
+        <div class="requestBox">
+          <a class = "request" href = "/request/{{request.requestID}}/view">{{request.title}}</a><br><br>
+        </div>
+        {%endfor%}
+        
+        
+      </div> 
+      <div class= "recommendationsDiv">
+        <div class="title">Recommendations</div>
+        {%for recom in recoms%}
+        <div class="recommendationBox">
+          <a class = "recommendation" href="/recommendation/{{recom.recomID}}/view" >Recommendation from {{recom.staff.firstName}} {{recom.staff.lastName}}</a><br><br>
+        </div>
+        {%endfor%}
+      </div> 
+      </div>
+    </section>
+    
+  </body>
+  
+</html>
